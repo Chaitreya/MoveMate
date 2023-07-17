@@ -1,0 +1,21 @@
+img
+ {
+  max-width: 100%;
+  display: block;
+}
+
+.img1{
+    width: 3.75rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.container {
+    display: grid;
+    gap: 1.5rem;
+    
+  
+    padding-block: 2rem;
+    width: min(95%, 90rem);
+    margin-inline: auto;
+  } 
