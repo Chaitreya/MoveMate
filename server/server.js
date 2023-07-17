@@ -1,27 +1,24 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import dotenv from "dotenv";
-import mongoose from 'mongoose';
-import cors from 'cors';
-import authRoutes from "./routes/authRoutes.js";
+const express = require('express');
+const colors = require('colors');
+const dotenv = require('dotenv').config();
+const connectDb = require('./config/db')
+const { errorHandler } = require("./middleware/errorMiddleware");
+const port = process.env.PORT || 5000
+const goalRoutes = require("./routes/goalRoutes");
+const userRoutes = require("./routes/userRoutes");
 
-dotenv.config();
+connectDb();
+
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// middlewares
 app.use(express.json());
-app.use(cors({
-    credentials: true,
-    origin: 'http://localhost:5173',
-}))
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/auth', authRoutes);
+app.use('/api/goals', goalRoutes);
+app.use('/api/users', userRoutes);
 
-mongoose.connect(process.env.MONGO_URL).then((result) => {
-    app.listen(PORT, () => {
-        console.log(`server is listening on port ${PORT}`);
-    });
-}).catch((err) => {
-    console.log(err);
+
+app.use(errorHandler);
+app.listen(port, () => {
+    console.log(`server started on port ${port}`);
 })
