@@ -6,9 +6,21 @@ const goalSchema = mongoose.Schema({
         required: true,
         ref: 'User',
     },
-    text: {
+    exercise: {
         type: String,
         required: true
+    },
+    sets: {
+        type: Number,
+        required: true,
+    },
+    reps: {
+        type: Number,
+        required: true,
+    },
+    completed: {
+        type: Number,
+        default: 0,
     }
 }, {
     timestamps: true

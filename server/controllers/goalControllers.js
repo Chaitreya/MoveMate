@@ -15,14 +15,17 @@ const getGoals = asyncHandler(async (req, res) => {
 // @route  POST api/goals
 // @access private
 const setGoals = asyncHandler(async (req, res) => {
-    if (!req.body.text) {
+    if (!req.body.exercise || !req.body.reps || !req.body.sets) {
         res.status(400);
         throw new Error("plz add a text field");
     }
 
     const goal = await Goal.create({
         user: req.user._id,
-        text: req.body.text
+        exercise: req.body.exercise,
+        reps: req.body.reps,
+        sets: req.body.sets,
+        completed: req.body.completed,
     })
     res.status(200).json(goal);
 })
